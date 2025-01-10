@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- For Android 11+ -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Financer"
+        tools:targetApi="31">
+        <activity
+            android:name=".ViewTransactions"
+            android:exported="false" />
+        <!-- FileProvider for sharing files -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.financer.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".CaptureImage"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".UploadTransactions"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".Analytics"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".Manual_entry_activity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".Main_menu"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".Registration"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".Sign_in"
+            android:screenOrientation="portrait"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

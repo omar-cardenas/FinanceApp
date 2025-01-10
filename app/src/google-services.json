@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "294664264947",
+    "project_id": "financer-303d2",
+    "storage_bucket": "financer-303d2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:294664264947:android:c321483ff61459a1ca2b86",
+        "android_client_info": {
+          "package_name": "com.example.financer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "294664264947-u44vtmf2407h9juiadvnadkh31eohmfo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.financer",
+            "certificate_hash": "82791f546736995eab06de5e603af9a4a602e302"
+          }
+        },
+        {
+          "client_id": "294664264947-m66ot44gein59qh719utr12qpn2p4e17.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLyEFEvSHTj7PVUJbrtwvgvNuqVgOHN24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "294664264947-m66ot44gein59qh719utr12qpn2p4e17.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
