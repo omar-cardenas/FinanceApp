@@ -54,7 +54,7 @@ Below are the key activities in the app along with brief descriptions and screen
 ## How to Run the Project
 
 - Clone the repository:
-git clone https://github.com/yourusername/task-management-app.git
+git clone https://github.com/omar-cardenas/FinanceApp.git
 
 - Open the project in Android Studio.
 
