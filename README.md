@@ -59,6 +59,8 @@ git clone https://github.com/omar-cardenas/FinanceApp.git
 - Open the project in Android Studio.
 
 - Build and run the project on an emulator or a physical device.
+  
+- I also included the apk file for quick acess, you can simply download and open it on an android device.
 
 ## Technologies Used
 - **Language**: Java, XML
