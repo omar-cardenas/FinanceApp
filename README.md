@@ -25,7 +25,7 @@ Below are the key activities in the app along with brief descriptions and screen
 - This screen is the main menu, it displays the username, option to log out, and the various activities.
 
 ### 3. Analytics
-<img src = "https://github.com/user-attachments/assets/0554275e-92c0-4714-b591-2aed160a60cc " alt = "Analytics" width = "400" />
+<img src = "https://github.com/user-attachments/assets/3b9bc907-f393-4051-a538-7960982ccfce" alt = "Analytics" width = "400" />
 
 - This screen uses a piechart to visualize how much a user is spending in each category.
 
