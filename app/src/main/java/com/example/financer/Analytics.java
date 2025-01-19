@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Analytics extends AppCompatActivity {
-    TextView totalTextView, topCategoriesTextView, viewTransactionsTextView;
+    TextView totalTextView, analyticsTextView, viewTransactionsTextView;
     FirebaseAuth myAuth;
     DatabaseReference firebaseReference;
     User user;
@@ -42,6 +42,40 @@ public class Analytics extends AppCompatActivity {
 
     int totalTransactions;
     ArrayList<Transaction> transactions = new ArrayList<>();
+    StringBuilder analyticsString = new StringBuilder();
+
+    public String findFrequentPurchase(){
+        HashMap<String, Integer> descriptions = new HashMap<>();
+
+        //populate hashmap
+        for(Transaction transaction: transactions){
+            String description = transaction.getDescription();
+            if(descriptions.containsKey(description)){
+                int count = descriptions.get(description);
+                descriptions.replace(description, count + 1 );
+            }else{
+                descriptions.put(description, 1);
+            }
+        }
+
+        //find key with highest value
+        int max = 0;
+        String purchase ="";
+        for(String description: descriptions.keySet()){
+            int currentCount = descriptions.get(description);
+            if(currentCount > max){
+                max = currentCount;
+                purchase = description;
+            }
+        }
+
+        if(max > 0){
+            return purchase;
+        }
+
+        return null;
+    }
+
 
 
     public void create_pieChart(){
@@ -83,7 +117,7 @@ public class Analytics extends AppCompatActivity {
 
         // Create the PieDataSet
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "Categories");
-        pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS); // Use predefined colors
+        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS); // Use predefined colors
 
         // Create PieData
         PieData pieData = new PieData(pieDataSet);
@@ -103,16 +137,16 @@ public class Analytics extends AppCompatActivity {
         return String.format("%.2f", money);
     }
 
-    public void updateTotal(){
+    public double updateTotal(){
         Double total = 0d;
         for(Transaction t: transactions){
             total += t.getAmount();
         }
 
-        totalTextView.setText("Total spending: $" + roundToTwoDigit(total));
+        return total;
     }
 
-    public void updateDataView(){
+    public void findTopCategories(){
 
         String displayString = "Top Categories:\n";
 
@@ -125,15 +159,13 @@ public class Analytics extends AppCompatActivity {
             Map.Entry<String, Integer> entry = sortedEntries.get(i);
             int count = entry.getValue();
             if(count > 0) {
-                if(count == 1) {
-                    displayString += entry.getKey() + ": " + entry.getValue() + " match\n";
-                }else{
-                    displayString += entry.getKey() + ": " + entry.getValue() + " matches\n";
-                }
+
+                displayString += entry.getKey() + " (" + entry.getValue() +")\n";
+
             }
         }
 
-        topCategoriesTextView.setText(displayString);
+        analyticsString.append(displayString);
     }
 
     @Override
@@ -141,7 +173,7 @@ public class Analytics extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analytics);
         totalTextView = findViewById(R.id.total_textView);
-        topCategoriesTextView = findViewById(R.id.topCategories_textView);
+        analyticsTextView = findViewById(R.id.showAnalytics_textView);
         viewTransactionsTextView = findViewById(R.id.viewTransactions_TextView);
 
         myAuth = FirebaseAuth.getInstance();
@@ -158,8 +190,19 @@ public class Analytics extends AppCompatActivity {
                     Transaction t = data.getValue(Transaction.class);
                     transactions.add(t);
                 }
+                String displayString = "";
+                double total = updateTotal();
+                displayString += "Total spending: $" + roundToTwoDigit(total) + "\n";
+                totalTextView.setText(displayString);
 
-                updateTotal();
+                String result = findFrequentPurchase();
+                if(result != null){
+                    String str = "Most Frequent Purchase: " + result + "\n\n";
+                    analyticsString.append(str);
+                }
+
+
+
 
             }
 
@@ -180,7 +223,8 @@ public class Analytics extends AppCompatActivity {
                     //Toast.makeText(Analytics.this, "success", Toast.LENGTH_SHORT).show();
                     //done here to avoid race conditions
                     create_pieChart();
-                    updateDataView();
+                    findTopCategories();
+                    analyticsTextView.setText(analyticsString.toString());
                 }else{
                     Toast.makeText(Analytics.this, "There was an error retrieving User object", Toast.LENGTH_SHORT).show();
                 }
